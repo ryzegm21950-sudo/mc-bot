@@ -4,6 +4,12 @@ const path = require('path')
 
 const configPath = path.join(process.cwd(), 'config.json')
 const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'))
+// Ưu tiên biến môi trường hơn config.json
+if (process.env.MC_HOST) config.host = process.env.MC_HOST
+if (process.env.MC_PORT) config.port = parseInt(process.env.MC_PORT)
+if (process.env.MC_USERNAME) config.username = process.env.MC_USERNAME
+if (process.env.MC_PASSWORD) config.password = process.env.MC_PASSWORD
+if (process.env.MC_SERVER_SLOT) config.serverSlot = parseInt(process.env.MC_SERVER_SLOT)
 
 function createBot() {
   const bot = mineflayer.createBot({
